@@ -5,6 +5,7 @@ metadata:
 spec:
   workspaces:
   - name: shared-workspace
+  
   params:
   - name: deployment-name
     type: string
@@ -19,6 +20,7 @@ spec:
   - name: IMAGE
     type: string
     description: image to be build from the code
+  
   tasks:
   - name: fetch-repository
     taskRef:
@@ -36,6 +38,7 @@ spec:
       value: "true"
     - name: revision
       value: $(params.git-revision)
+  
   - name: build-image
     taskRef:
       name: buildah
@@ -48,6 +51,7 @@ spec:
       workspace: shared-workspace
     runAfter:
     - fetch-repository
+  
   - name: apply-manifests
     taskRef:
       name: apply-manifests
@@ -56,6 +60,7 @@ spec:
       workspace: shared-workspace
     runAfter:
     - build-image
+  
   - name: update-deployment
     taskRef:
       name: update-deployment
